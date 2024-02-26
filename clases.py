@@ -1,5 +1,6 @@
 from variables import *
 import numpy as np
+import random
 
 class Tablero():
     def __init__(self, jugador, dicc_barcos_usuario = None):
@@ -16,9 +17,24 @@ class Tablero():
 
     def __str__(self):
         return f"Tablero del jugador {self.jugador}\nUsuario: {self.tablero_usuario}\nMáquina: {self.tablero_maquina}"
+    
+
+    
+    def generador_disparo_maquina(self):
+        fila = random.randrange(0 , ALTO_TABLERO)
+        columna = random.randrange(0 , ANCHO_TABLERO)
+        if self.tablero_usuario[fila, columna] == "X":
+            print("¡Tocado!, Barco alcanzado")
+        elif self.tablero_usuario[fila, columna] == "_":
+            print("¡Agua!, Disparo en agua")
+        else:
+            print("Ya habias disparado en esas coordenadas")
+
 
 tablero1 = Tablero(ID_JUGADOR, dicc_barcos_usuario)
 tablero2 = Tablero(ID_MAQUINA, dicc_barcos_maquina)
+
+tablero2.generador_disparo_maquina()
 
 print(tablero1)
 print(tablero2)
