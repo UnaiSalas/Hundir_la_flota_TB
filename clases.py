@@ -18,8 +18,6 @@ class Tablero():
     def __str__(self):
         return f"Tablero del jugador {self.jugador}\nUsuario: {self.tablero_usuario}\nMáquina: {self.tablero_maquina}"
     
-
-    
     def generador_disparo_maquina(self):
         fila = random.randrange(0 , ALTO_TABLERO)
         columna = random.randrange(0 , ANCHO_TABLERO)
@@ -30,9 +28,37 @@ class Tablero():
         else:
             print("Ya habias disparado en esas coordenadas")
 
+    def disparo_coordenada(self):
+        coordenadas = input("Introduce las dos coordenadas para el disparo: " ).split()
+        fila = int(coordenadas[0])
+        columna = int(coordenadas[1])
+        print(f"Intentando disparar a las coordenadas {fila} {columna}...")
+        if self.tablero_maquina[fila, columna] == "O":
+            print("¡Impacto! Barco alcanzado.")
+            self.tablero_maquina[fila, columna] = "X"
+        elif self.tablero_maquina[fila, columna] == " ":
+            print("¡Agua! Disparo en el agua.")
+            self.tablero_maquina[fila, columna] = "-"
+        else:
+            print("¡Ya habías disparado en esta posición!")
+
+    def generador_disparo_maquina(self):
+        fila = random.randint(0 , ALTO_TABLERO)
+        columna = random.randint(0 , ANCHO_TABLERO)
+        print(f"Intentando disparar a las coordenadas {fila} {columna}...")
+        if self.tablero_usuario[fila, columna] == "O":
+            print("¡Tocado!, Barco alcanzado")
+            self.tablero_usuario[fila, columna] = "X"
+        elif self.tablero_usuario[fila, columna] == " ":
+            self.tablero_usuario[fila, columna] = "-"
+            print("¡Agua!, Disparo en agua")
+        else:
+            print("Ya habias disparado en esas coordenadas")
 
 tablero1 = Tablero(ID_JUGADOR, dicc_barcos_usuario)
 tablero2 = Tablero(ID_MAQUINA, dicc_barcos_maquina)
+tablero1.disparo_coordenada()
+tablero2.generador_disparo_maquina()
 
 tablero2.generador_disparo_maquina()
 
