@@ -16,5 +16,7 @@ class Tablero():
         return np.full((filas, columnas), " ")
 
     def __str__(self):
+
         return f"Tablero del jugador {self.jugador}\nUsuario: {self.tablero_usuario}\nMáquina: {self.tablero_oponente}"
     
+

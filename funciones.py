@@ -4,6 +4,7 @@ import numpy as np
 import random
 
 def disparo_coordenada(tablero):
+
     if tablero.jugador == 0:
         coordenadas = input("Introduce las dos coordenadas para el disparo: " ).split()
         fila = int(coordenadas[0])
@@ -29,4 +30,5 @@ def disparo_coordenada(tablero):
             print("¡Agua!, Disparo en agua")
         else:
             print("Ya habias disparado en esas coordenadas")
+
     
