@@ -46,3 +46,22 @@ while True:
         print(f'Es el turno del oponente')
         disparo_coordenada(tablero1)
 
+
+
+# Colocacion de barcos (dentro de la clase)
+
+def colocar_barcos(self):
+    for barcos, eslora in self.dicc_barcos_usuario.items(): # Recorrer diccionario barcos con nombres y eslora
+        orientacion = random.choice(["Horizontal", "Vertical"]) # Seleccion horientacion, aleatoria 
+        if orientacion == "Horizontal":
+            fila = random.randint(0, self.dimensiones -1)
+            columna = random.randint(0, self.dimensiones - eslora)
+            for i in range(eslora): # Colocacion en el tablero una vez seleccionada la orientacion 
+                self.tablero[fila, columna + i] = 1
+        else: 
+            fila = random.randint(0, self.dimensiones - eslora)
+            columna = random.randint(0, self.dimensiones - 1)
+            for i in range(eslora):
+                self.tablero[fila + i, columna] = 1
+
+
