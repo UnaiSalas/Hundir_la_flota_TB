@@ -17,3 +17,7 @@ dicc_barcos_maquina = {
     'barco_3' : 3,
     'barco_4' : 4,
 }
+
+turno = 0 #valores: 0 y 1. 0: turno usuario y 1: turno máquina
+
+{'barco3': [[2,4],[2,5],[2,6]]}
