@@ -28,30 +28,4 @@ class Tablero():
         else:
             print("Ya habias disparado en esas coordenadas")
 
-    def disparo_coordenada(self):
-        coordenadas = input("Introduce las dos coordenadas para el disparo: " ).split()
-        fila = int(coordenadas[0])
-        columna = int(coordenadas[1])
-        print(f"Intentando disparar a las coordenadas {fila} {columna}...")
-        if self.tablero_maquina[fila, columna] == "O":
-            print("¡Impacto! Barco alcanzado.")
-            self.tablero_maquina[fila, columna] = "X"
-        elif self.tablero_maquina[fila, columna] == " ":
-            print("¡Agua! Disparo en el agua.")
-            self.tablero_maquina[fila, columna] = "-"
-        else:
-            print("¡Ya habías disparado en esta posición!")
-
-    def generador_disparo_maquina(self):
-        fila = random.randint(0 , ALTO_TABLERO)
-        columna = random.randint(0 , ANCHO_TABLERO)
-        print(f"Intentando disparar a las coordenadas {fila} {columna}...")
-        if self.tablero_usuario[fila, columna] == "O":
-            print("¡Tocado!, Barco alcanzado")
-            self.tablero_usuario[fila, columna] = "X"
-        elif self.tablero_usuario[fila, columna] == " ":
-            self.tablero_usuario[fila, columna] = "-"
-            print("¡Agua!, Disparo en agua")
-        else:
-            print("Ya habias disparado en esas coordenadas")
 
