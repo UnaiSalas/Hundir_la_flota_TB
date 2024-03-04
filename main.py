@@ -1,5 +1,5 @@
 from variables import *
-from funciones import *
+#from funciones import *
 from clases import *
 import numpy as np
 import random
@@ -26,7 +26,7 @@ welcome = input('''¡Hola! ¡Bienvenido al juego de HUNDIR LA FLOTA!\n
 
                 El jugador que hunde todos los barcos del oponente primero es el ganador.\n
                 ''')
-
-disparo_coordenada(tablero1)
+tablero1.colocar_barcos()
+#disparo_coordenada(tablero1)
 
 print(tablero1)
