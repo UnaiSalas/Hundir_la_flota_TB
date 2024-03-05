@@ -65,3 +65,4 @@ def colocar_barcos(self):
                 self.tablero[fila + i, columna] = 1
 
 
+# 
