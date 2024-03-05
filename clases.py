@@ -21,7 +21,9 @@ class Tablero():
     def colocar_barcos(self):
         for barcos, eslora in self.dicc_barcos_usuario.items(): # Recorrer diccionario barcos con nombres y eslora
             orientacion = random.choice(["Horizontal", "Vertical"]) # Seleccion horientacion, aleatoria 
-            for _ in range(10): # Intentar colocar 10 barcos
+            intentos_restantes = 10 # Intentos restantes
+            colocado = False
+            while intentos_restantes > 0 and not colocado: # Mientras haya intentos y barco no colocado
                 if orientacion == "Horizontal":
                     fila = random.randint(0, self.fila -1)
                     columna = random.randint(0, self.columna - eslora)
@@ -44,6 +46,8 @@ class Tablero():
                         for i in range(eslora):
                             self.tablero_usuario[fila + i, columna] = 'X'
                             #self.dicc_barcos_usuario[barcos].append((fila + i, columna))
+                    else:
+                        intentos_restantes -= 1
 
 tablero = Tablero(jugador = 1, dicc_barcos_usuario = dicc_barcos_usuario)
 tablero.colocar_barcos()
