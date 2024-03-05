@@ -35,6 +35,8 @@ class Tablero():
                         for i in range(eslora): # Colocacion en el tablero una vez seleccionada la orientacion 
                             #self.dicc_barcos_usuario[barcos].append((fila, columna + i))
                             self.tablero_usuario[fila, columna + i] = 'X'
+                    else:
+                        intentos_restantes -= 1
                 else: 
                     fila = random.randint(0, self.fila - eslora)
                     columna = random.randint(0, self.columna - 1)
