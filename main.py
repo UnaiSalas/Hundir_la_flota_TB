@@ -5,8 +5,8 @@ import numpy as np
 import random
 
 
-tablero1 = Tablero(ID_JUGADOR, dicc_barcos_usuario)
-tablero2 = Tablero(ID_MAQUINA, dicc_barcos_maquina)
+tablero_jugador = Tablero(ID_JUGADOR, dicc_barcos_usuario)
+tablero_maquina = Tablero(ID_MAQUINA, dicc_barcos_maquina)
 
 welcome = input('''¡Hola! ¡Bienvenido al juego de HUNDIR LA FLOTA!\n 
                 
@@ -26,7 +26,7 @@ welcome = input('''¡Hola! ¡Bienvenido al juego de HUNDIR LA FLOTA!\n
 
                 El jugador que hunde todos los barcos del oponente primero es el ganador.\n
                 ''')
-tablero1.colocar_barcos()
+tablero_jugador.colocar_barcos()
+print(tablero_jugador)
+partida(tablero_jugador, tablero_maquina)
 
-print(tablero1)
-partida(tablero1)

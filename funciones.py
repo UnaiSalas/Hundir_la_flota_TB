@@ -9,7 +9,7 @@ contador_maquina = 20 #20 es un ejemplo.
 def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como del usuario.
     global TURNO
 
-    if tablero.jugador == 0:
+    if TURNO == 0:
         coordenadas = input("Introduce las dos coordenadas para el disparo: " ).split()
         fila = int(coordenadas[0])
         columna = int(coordenadas[1])
@@ -32,6 +32,9 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
     elif tablero.tablero_usuario[fila, columna] == " ":
         tablero.tablero_usuario[fila, columna] = "-"
         print("¡Agua!, Disparo en agua")
+
+        cambio_turno(tablero)
+        
         if TURNO == 0:
             TURNO = 1 #definimos de quién es el turno, si del usuario o de la máquina
         else:
@@ -40,17 +43,18 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
         print("Ya habias disparado en esas coordenadas")
     
 
-def comprobacion_fin_partida(tablero): #funcion para acabar la partida
-    #diccionario barcos con listas de las posiciones. Estas posiciones se actualizan al inicio.
-    if TURNO == 0:   
-        if all(barco == X for barco in dicc_barcos_usuario.values()):
-            print('Estas acabado')
-    else:
-        pass
+# def comprobacion_fin_partida(tablero): #funcion para acabar la partida
+#     #diccionario barcos con listas de las posiciones. Estas posiciones se actualizan al inicio.
+#     if TURNO == 0:   
+#         if all(barco == 'X' for barco in dicc_barcos_usuario.values()):
+#             print('Estas acabado')
+#     else:
+#         pass
         
 def comprobacion_fin(tablero):
     todos_hundidos = all(all(posicion == 'X' for posicion in posiciones) for posiciones in tablero.dicc_barcos_usuario.values())
-    print("Se acabó el juego!")
+    if todos_hundidos == True:
+        print("Se acabo el juego")
     return todos_hundidos
 
 def tocado_hundido(tablero, coordenadas):
@@ -74,12 +78,20 @@ def coordenadas_tocadas(tablero,coordenadas):
 
 #entramso en diccionario y cambiamos la coordenada a X i.e. {'barco1': [[2,4],[2,5],[2,6]]} --> {'barco1': [X,X,X]}
 
+
+# Funcion cambio de turno
+
+def cambio_turno(tablero):
+    if tablero.jugador == 0:
+        fila = random.randint(0, ALTO_TABLERO)
+        columna = random.randint(0 , ANCHO_TABLERO)
+    else:
+        print("La maquina ha hecho agua, te vuelve a toca a ti¡¡")
+
+
 '''
 --> dentro del all hacemos la comprobacion. Que value != X. Iteramos. Gerenamos bool. Comprboamos todos bool. 
 All devolverá True si todos son Trues. 
-
-
-
 disparo 5,4
 
 key : barco_
@@ -89,7 +101,13 @@ dicc.values()
 value != X:
 continuamos
 '''
-def partida(tablero1):
+def partida(tablero_jugador, tablero_maquina):
     while True:
-        disparo_coordenada(tablero1)
-        print(tablero1.dicc_barcos_usuario)
+        if TURNO == 0: # Si se da el turno del jugador
+            disparo_coordenada(tablero_maquina)
+            print("Aqui tenemos el tablero de la maquina")
+            print(tablero_maquina.tablero_usuario)
+        else:
+            disparo_coordenada(tablero_jugador)
+            print("Aqui tenemos el tablero del jugador")
+            print(tablero_jugador.tablero_usuario)
