@@ -8,7 +8,7 @@ class Tablero():
         self.fila = ALTO_TABLERO
         self.columna = ANCHO_TABLERO
 
-        self.dicc_barcos_usuario = dicc_barcos_usuario #duditas
+        self.dicc_barcos_usuario = dicc_barcos_usuario 
         self.tablero_usuario = self.crear_tablero(self.fila, self.columna)
         self.tablero_maquina = self.crear_tablero(self.fila, self.columna)
 
