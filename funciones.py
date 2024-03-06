@@ -14,8 +14,8 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
         fila = int(coordenadas[0])
         columna = int(coordenadas[1])
     else:
-        fila = random.randint(0 , ALTO_TABLERO)
-        columna = random.randint(0 , ANCHO_TABLERO)
+        fila = random.randint(0, ALTO_TABLERO)
+        columna = random.randint(0, ANCHO_TABLERO)
     print(f"Intentando disparar a las coordenadas {fila} {columna}...")
     if tablero.tablero_usuario[fila, columna] == "O":
         tablero.tablero_usuario[fila, columna] = "X"
@@ -31,16 +31,19 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
         #nueva funcion que detecta si está todo alcanzado comprobacion ()
     elif tablero.tablero_usuario[fila, columna] == " ":
         tablero.tablero_usuario[fila, columna] = "-"
-        print("¡Agua!, Disparo en agua")
-
-        cambio_turno(tablero)
-        
-        if TURNO == 0:
-            TURNO = 1 #definimos de quién es el turno, si del usuario o de la máquina
-        else:
-            TURNO = 0
+        print("¡Agua!, Disparo en agua") 
+        #TURNO = 1     
+        # if TURNO == 0:
+        #      TURNO = 1 #definimos de quién es el turno, si del usuario o de la máquina
+        # else:
+        #      TURNO = 0
     else:
         print("Ya habias disparado en esas coordenadas")
+    
+    if TURNO == 0:  # Cambiar turno si ha disparado en agua
+        TURNO = 1
+    else:
+        TURNO = 0
     
 
 # def comprobacion_fin_partida(tablero): #funcion para acabar la partida
@@ -81,12 +84,12 @@ def coordenadas_tocadas(tablero,coordenadas):
 
 # Funcion cambio de turno
 
-def cambio_turno(tablero):
-    if tablero.jugador == 0:
-        fila = random.randint(0, ALTO_TABLERO)
-        columna = random.randint(0 , ANCHO_TABLERO)
-    else:
-        print("La maquina ha hecho agua, te vuelve a toca a ti¡¡")
+# def cambio_turno(tablero):
+#     if tablero.jugador == 0:
+#         fila = random.randint(0, ALTO_TABLERO)
+#         columna = random.randint(0, ANCHO_TABLERO)
+#     else:
+#         print("La maquina ha hecho agua, te vuelve a toca a ti¡¡")
 
 
 '''
