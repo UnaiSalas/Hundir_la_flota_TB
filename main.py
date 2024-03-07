@@ -5,8 +5,6 @@ import numpy as np
 import os
 import random
 
-
-
 tablero_jugador = Tablero(ID_JUGADOR, dicc_barcos_usuario)
 tablero_maquina = Tablero(ID_MAQUINA, dicc_barcos_maquina)
 
