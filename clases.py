@@ -16,7 +16,27 @@ class Tablero():
         return np.full((filas, columnas), " ")
 
     def __str__(self):
-        return f"Tablero del jugador {self.jugador}\nUsuario:\n {self.tablero_usuario}\nMáquina:\n {self.tablero_maquina}\n diccionario:{self.dicc_barcos_usuario}"
+        tablero_usuario_str = "Tablero del jugador {}\nUsuario:\n".format(self.jugador)
+        for i, fila in enumerate(self.tablero_usuario):
+            tablero_usuario_str += "{} ".format(i)
+            for valor in fila:
+                tablero_usuario_str += "{} ".format(valor)
+            tablero_usuario_str += "\n"
+        
+        # Construir la representación del tablero de la máquina
+        tablero_maquina_str = "Máquina:\n"
+        for i, fila in enumerate(self.tablero_maquina):
+            tablero_maquina_str += "{} ".format(i)
+            for valor in fila:
+                tablero_maquina_str += "{} ".format(valor)
+            tablero_maquina_str += "\n"
+        
+        # Construir la representación del diccionario de barcos del usuario
+        diccionario_str = "diccionario:{}".format(self.dicc_barcos_usuario)
+        
+        # Combinar las representaciones en una sola cadena
+        return "{}\n{}".format(tablero_usuario_str, tablero_maquina_str, diccionario_str)
+    #return f"Tablero del jugador {self.jugador}\nUsuario:\n {self.tablero_usuario}\nMáquina:\n {self.tablero_maquina}\n diccionario:{self.dicc_barcos_usuario}"
 
     def colocar_barcos(self):
         for barcos, eslora in self.dicc_barcos_usuario.items(): # Recorrer diccionario barcos con nombres y eslora

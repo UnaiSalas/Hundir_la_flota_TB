@@ -8,7 +8,7 @@ import time
 contador_usuario = 20
 contador_maquina = 20
 
-def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como del usuario.
+def disparo_coordenada(tablero_disparado, tablero_disparador): #realiza el disparo tanto de la máquina como del usuario.
     global TURNO
     if TURNO == 0:
         coordenadas = input("Introduce las dos coordenadas para el disparo: " ).split() 
@@ -26,79 +26,49 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
     print(f"Intentando disparar a las coordenadas {fila} {columna}...")
     time.sleep(3)  # Aplicar un retraso de 5 segundos
 
-    if tablero.tablero_usuario[fila, columna] == "O":
-        tablero.tablero_usuario[fila, columna] = "X"
-        tocado_hundido(tablero, coordenadas)
-        coordenadas_tocadas(tablero,coordenadas)
-        fin_partida = comprobacion_fin(tablero)
-        print(fin_partida)
-    elif tablero.tablero_usuario[fila, columna] == " ":
-        tablero.tablero_usuario[fila, columna] = "-"
+    if tablero_disparado.tablero_usuario[fila, columna] == "O":
+        tablero_disparado.tablero_usuario[fila, columna] = "X"
+        tablero_disparador.tablero_maquina[fila,columna] = "X"
+        tocado_hundido(tablero_disparado, coordenadas)
+        coordenadas_tocadas(tablero_disparado,coordenadas)
+        fin_partida = comprobacion_fin(tablero_disparado)
+    elif tablero_disparado.tablero_usuario[fila, columna] == " ":
+        tablero_disparado.tablero_usuario[fila, columna] = "-"
+        tablero_disparador.tablero_maquina[fila,columna] = "-"
         print("¡Agua!, Disparo en agua")     
         if TURNO == 0:
-              TURNO = 1 #definimos de quién es el turno, si del usuario o de la máquina --> No entiendo porque esta esto comentado. No sería esta validacion?
+            TURNO = 1 #definimos de quién es el turno, si del usuario o de la máquina
         else:
-              TURNO = 0
+            TURNO = 0
     else:
         print("Ya habias disparado en esas coordenadas")
     
       
 def comprobacion_fin(tablero):
-    if TURNO == 0:
-        todos_hundidos = all(all(posicion == 'X' for posicion in posiciones) for posiciones in tablero.dicc_barcos_usuario.values())
-        if todos_hundidos == True:
-            print("Se acabo el juego")
-    else:
-        todos_hundidos = all(all(posicion == 'X' for posicion in posiciones) for posiciones in tablero.dicc_barcos_maquina.values())
-        if todos_hundidos == True:
-            print("Se acabo el juego")
+    todos_hundidos = all(all(posicion == 'X' for posicion in posiciones) for posiciones in tablero.dicc_barcos_usuario.values())
+    if todos_hundidos == True:
+        print("Se acabo el juego")
     return todos_hundidos
 
 def tocado_hundido(tablero, coordenadas):
-    print(coordenadas)
     coordenadas = tuple(map(int, coordenadas))
-    print(coordenadas)
-    if TURNO == 0:
-        for barcos, posiciones in tablero.dicc_barcos_usuario.items():
-            if coordenadas in posiciones:
-                todas_X = all((posicion == 'X') or (tablero.tablero_usuario[posicion] == 'X') for posicion in posiciones)
-                if todas_X:
-                    print(f"Tocado y hundido el barco {barcos}")
-                else:
-                    print(f"Tocado")
-    else:
-        for barcos, posiciones in tablero.dicc_barcos_maquina.items():
-            if coordenadas in posiciones:
-                todas_X = all((posicion == 'X') or (tablero.tablero_usuario[posicion] == 'X') for posicion in posiciones)
-                if todas_X:
-                    print(f"Tocado y hundido el barco {barcos}")
-                else:
-                    print(f"Tocado")
+    for barcos, posiciones in tablero.dicc_barcos_usuario.items():
+        if coordenadas in posiciones:
+            todas_X = all((posicion == 'X') or (tablero.tablero_usuario[posicion] == 'X') for posicion in posiciones)
+            if todas_X:
+                print(f"Tocado y hundido el barco {barcos}")
+            else:
+                print(f"Tocado")
 
 
 def coordenadas_tocadas(tablero,coordenadas):
     fila = int(coordenadas[0])
     columna = int(coordenadas[1])
-    if TURNO == 0:
-        for posiciones in tablero.dicc_barcos_usuario.values():
-            if(fila,columna) in posiciones:
-                posiciones[posiciones.index((fila, columna))] = 'X'
-    else:
-        for posiciones in tablero.dicc_barcos_maquina.values():
-            if(fila,columna) in posiciones:
-                posiciones[posiciones.index((fila, columna))] = 'X'
+    for posiciones in tablero.dicc_barcos_usuario.values():
+        if(fila,columna) in posiciones:
+            posiciones[posiciones.index((fila, columna))] = 'X'
 
-#entramso en diccionario y cambiamos la coordenada a X i.e. {'barco1': [[2,4],[2,5],[2,6]]} --> {'barco1': [X,X,X]}
-
-
-# Funcion cambio de turno
-
-# def cambio_turno(tablero):
-#     if tablero.jugador == 0:
-#         fila = random.randint(0, ALTO_TABLERO)
-#         columna = random.randint(0, ANCHO_TABLERO)
-#     else:
-#         print("La maquina ha hecho agua, te vuelve a toca a ti¡¡")
+#entramos en diccionario y cambiamos la coordenada a X i.e. {'barco1': [[2,4],[2,5],[2,6]]} --> {'barco1': [X,X,X]}
 
 def coordenadas_correctas(fila,columna):
     if 0 <= fila < ALTO_TABLERO and 0 <= columna < ANCHO_TABLERO:
@@ -129,17 +99,25 @@ El jugador que hunde todos los barcos del oponente primero es el ganador.
         os.system('cls')  # Limpiar pantalla
         if TURNO == 0:  # Turno del jugador
             print('¡Tu turno!')
-            disparo_coordenada(tablero_maquina)
+            disparo_coordenada(tablero_maquina, tablero_jugador)
             print("Aquí tienes el tablero de la máquina:")
-            print(tablero_maquina.tablero_usuario)
-            time.sleep(5)  # Aplicar un retraso de 5 segundos
+            imprimir_tablero(tablero_jugador.tablero_maquina)
+            #print(tablero_jugador.tablero_maquina)
+            time.sleep(3)  # Aplicar un retraso de 5 segundos
             input("Presiona Enter para continuar...")
         else:  # Turno de la máquina
             print('¡Es el turno de la máquina!')
-            disparo_coordenada(tablero_jugador)
+            disparo_coordenada(tablero_jugador, tablero_maquina)
             print("Aquí tienes tu tablero:")
-            print(tablero_jugador.tablero_usuario)
-            time.sleep(5)  # Aplicar un retraso de 5 segundos
+            #print(tablero_jugador.tablero_usuario)
+            imprimir_tablero(tablero_jugador.tablero_usuario)
+            time.sleep(3)  # Aplicar un retraso de 5 segundos
             input("Presiona Enter para continuar...")
 
+def imprimir_tablero(tablero):
+    letras = '0123456789'
+    print("   " + " ".join(letras))
+    for i, fila in enumerate(tablero):
+        print(str(i).rjust(2) + '|' + '|'.join(fila) + '|')
+        #for celda in fila:
     
