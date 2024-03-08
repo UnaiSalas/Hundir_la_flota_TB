@@ -28,5 +28,6 @@ welcome = input('''¡Hola! ¡Bienvenido al juego de HUNDIR LA FLOTA!\n
                 El jugador que hunde todos los barcos del oponente primero es el ganador.\n
                 ''')
 tablero_jugador.colocar_barcos()
+tablero_maquina.colocar_barcos()
 print(tablero_jugador)
 partida(tablero_jugador, tablero_maquina)
