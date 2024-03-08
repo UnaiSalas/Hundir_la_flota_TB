@@ -19,12 +19,12 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
             fila = int(coordenadas[0])
             columna = int(coordenadas[1])
     else:
-        fila = random.randint(0, ALTO_TABLERO)
-        columna = random.randint(0, ANCHO_TABLERO)
+        fila = random.randint(0, ALTO_TABLERO-1)
+        columna = random.randint(0, ANCHO_TABLERO-1)
         coordenadas = [fila,columna]
 
     print(f"Intentando disparar a las coordenadas {fila} {columna}...")
-    time.sleep(5)  # Aplicar un retraso de 5 segundos
+    time.sleep(3)  # Aplicar un retraso de 5 segundos
 
     if tablero.tablero_usuario[fila, columna] == "O":
         tablero.tablero_usuario[fila, columna] = "X"
@@ -34,8 +34,7 @@ def disparo_coordenada(tablero): #realiza el disparo tanto de la máquina como d
         print(fin_partida)
     elif tablero.tablero_usuario[fila, columna] == " ":
         tablero.tablero_usuario[fila, columna] = "-"
-        print("¡Agua!, Disparo en agua") 
-        TURNO = 1     
+        print("¡Agua!, Disparo en agua")     
         if TURNO == 0:
               TURNO = 1 #definimos de quién es el turno, si del usuario o de la máquina --> No entiendo porque esta esto comentado. No sería esta validacion?
         else:
@@ -125,7 +124,6 @@ Ganador:
 El jugador que hunde todos los barcos del oponente primero es el ganador.
           ''')
     input("Presiona Enter para continuar...")
-    TURNO = 0
     #TURNO = random.randint(0, 1) #la primera vez, tiene que ser random
     while True: 
         os.system('cls')  # Limpiar pantalla
